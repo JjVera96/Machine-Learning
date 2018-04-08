@@ -20,5 +20,5 @@ def linearRegressionModule(X,t,basisFNC,NbF):
     yEst = PHI.dot(w_ml)
     #print w_ml
     return PHI,w_ml,yEst
-		
+
 	
