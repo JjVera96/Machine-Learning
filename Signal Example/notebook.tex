@@ -1,0 +1,972 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Se?al 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Laboratorio 1: Regresión utilizando Mínimos
+Cuadrados}\label{laboratorio-1-regresiuxf3n-utilizando-muxednimos-cuadrados}
+
+    En este laboratorio trabajaremos con la base de datos
+\(<ejemplo\_regresion.mat>\). Estos datos representan una señal para la
+cual se tienen las características \(\bf{x}\), las etiquetas reales
+\(\bf{y}\) (sin ruido) y las observaciones ruidosas \(\bf{t}\). La
+siguiente figura muestra una representación de los datos descritos.
+
+    Primero debemos adicionar algunas librerías sobre las cuales vamos a
+trabajar durante el módulo
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  matplotlib.pyplot
+\item
+  numpy
+\item
+  math
+\item
+  scipy.io
+\end{enumerate}
+
+Con el objetivo de importar una librería debemos realizar el siguiente
+comando:
+
+\(\textbf{import}\) \(nombreLib\) \(\textbf{as}\) \(variableNombreLib\)
+
+El término \(variableNombreLib\) indica la etiqueta con la cual
+llamaremos dicha librería. Algunas de las librerías mas importantes son
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt} \PY{c+c1}{\PYZsh{} Libreria para graficar y visualizar resultados}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} libreria de manejo de datos matriciales y operaciones multivariadas}
+        \PY{k+kn}{import} \PY{n+nn}{math} \PY{c+c1}{\PYZsh{} Libreria de opreaciones matematicas}
+        \PY{k+kn}{import} \PY{n+nn}{scipy.io} \PY{k+kn}{as} \PY{n+nn}{sio} \PY{c+c1}{\PYZsh{} Libreria para cargar o escribir datos (Se utilizara para cargar nuestros DATASETS)}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+\end{Verbatim}
+
+
+    Para cargar nuestro \(DATASET\), utilizaremos la función
+\(\textbf{loadmat}\) de la librería \(\textbf{sio}\) de la forma
+
+\(dataSet\) =
+\(\textbf{sio.loadmat}\)\(('nombredelarchivoFormatoMAT.mat')\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{data} \PY{o}{=} \PY{n}{sio}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ejemplo\PYZus{}regresion.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Debido a que la variable \(\bf{data}\) es un diccionario que contiene
+las variables \(\bf{x}\), \(\bf{t}\) y \(\bf{y}\), es necesario
+extraerlas y asignarlas apropiadamente para su procesamiento. La forma
+de asignarlas a una respectiva variable es:
+
+\(variableDestino = diccName['nombreCampo']\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Se accede al campo x donde se encuentran las características del conjunto de entrenamiento}
+        \PY{n}{N}\PY{p}{,}\PY{n}{D} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{shape}
+        \PY{n}{t} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Se accede al campo de las etiqueta (valores reales observados con ruido)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Se accede al campo de las etiquetas sin ruido (para verificacion)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise data (t)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True data (y)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.legend.Legend at 0x93e7ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{id} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+        
+        \PY{n}{perTrain} \PY{o}{=} \PY{l+m+mf}{0.7}
+        \PY{n}{NTr} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{perTrain}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+        \PY{n}{idTr} \PY{o}{=} \PY{n+nb}{id}\PY{p}{[}\PY{p}{:}\PY{n}{NTr}\PY{p}{]}
+        \PY{n}{idTe} \PY{o}{=}\PY{n+nb}{id}\PY{p}{[}\PY{n}{NTr}\PY{p}{:}\PY{p}{]}
+        \PY{n}{xTr} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{idTr}\PY{p}{]}
+        \PY{n}{xTe} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{idTe}\PY{p}{]}
+        \PY{n}{tTr} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{n}{idTr}\PY{p}{]}
+        \PY{n}{tTe} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{n}{idTe}\PY{p}{]}
+        \PY{k}{print} \PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{xTr}\PY{o}{.}\PY{n}{shape}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train data (Tr)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data (Te)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(200L, 1L) (140L, 1L)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.legend.Legend at 0x943af28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Luego de tener nuestros datos debidamente almacenados en sus respectivas
+variables debemos recordar que para una tarea de machine learning,
+nuestro conjunto de datos serán:
+
+\(\bullet\) Observaciones para
+\(\bf{X}=[\bf{x}_1,\bf{x}_2,\cdots, \bf{x}_N]\in \mathbb{R}^{N\times D}\),
+donde cada vector observado es de dimensionaledad
+\(\bf{x}\in \mathbb{R}^{D\times 1}\)
+
+\(\bullet\) Etiquetas (flotantes) para
+\(\bf{t}\in \mathbb{R}^{N\times 1}\)
+
+    \section{Funcion de regresión lineal y
+error}\label{funcion-de-regresiuxf3n-lineal-y-error}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{LS}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{basisFNC}\PY{p}{,}\PY{n}{NbF}\PY{p}{)}\PY{p}{:}
+            \PY{n}{Ndata}\PY{p}{,}\PY{n}{D} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+            \PY{c+c1}{\PYZsh{}print Ndata,D}
+            \PY{n}{yEst} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{Ndata}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Calculo de la matriz PHI de funciones base}
+            \PY{n}{PHI} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{Ndata}\PY{p}{,}\PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{PHI}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{s2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{Ndata}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print X[n]}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{basisFNC} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}                
+                        \PY{n}{PHI}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{basisFNC} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                        \PY{n}{PHI}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s2}\PY{p}{)}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{basisFNC} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                        \PY{n}{PHI}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{s2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Luego se estima el mejor W que maximiza la verosimilitud utilizando minimos cuadrados}
+            \PY{n}{PHIT} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{T}
+            \PY{n}{w\PYZus{}ml} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+            \PY{n}{yEst} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}ml}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print w\PYZus{}ml}
+            \PY{k}{return} \PY{n}{PHI}\PY{p}{,}\PY{n}{w\PYZus{}ml}\PY{p}{,}\PY{n}{yEst}\PY{p}{,} \PY{n}{s2}  
+        
+        \PY{k}{def} \PY{n+nf}{Erms}\PY{p}{(}\PY{n}{to}\PY{p}{,} \PY{n}{te}\PY{p}{)}\PY{p}{:}
+            \PY{n}{N}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{n}{to}\PY{o}{.}\PY{n}{shape}
+            \PY{n}{eRMS} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{N}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{to}\PY{o}{\PYZhy{}}\PY{n}{te}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{eRMS}
+\end{Verbatim}
+
+
+    Este módulo realiza la tarea de ajusta un conjunto de observaciones
+\(\bf X\) a unas etiquetas \(\bf t\) a partir de la selección del mapeo
+de una cantidad \(M\) de funciones base que pueden ser de tipo
+polinomial, exponencial y sigmoidal. Estas funciones base permiten
+llevar nuestras observaciones a un espacio de representación mas
+relevante en el cual el ajuste de los datos presenta un mejor desempeño.
+
+El módulo denominado \(\bf LS\) se ejecuta de mediante el siguiente
+comando
+
+\(W\_ML, EtiquetaEstimada\) \(=\)
+\(\bf LS\)\((observaciones,etiquetas,tipoFCNbase,M)\)
+
+Dicha función recibe cómo argumentos de entrada:
+
+\(\bullet\) observaciones: matriz de dimensión
+\(\mathbb{R}^{N\times D}\) que contiene los patrones a modelar
+
+\(\bullet\) etiquetas: vector de dimensión \(\mathbb{R}^{N\times 1}\)
+que contiene las etiquetas correspondientes a cada dato
+
+\(\bullet\) tipoFCNbase: dato tipo cadena para identificar el tipo de
+funcion base a utilizar. Esta cadena puede ser:
+
+\(-\) 'pol': para una funcion de base polinomial
+
+\(-\) 'exp': para una funcion de base exponencial
+
+\(-\) 'sig': para una funcion de base sigmoidal
+
+Dicha función tiene cómo argumentos de salida:
+
+\(\bullet\) \(W\_ML\): vector de coeficientes que realiza la estimación
+de los datos de la forma
+\(\hat{\bf{y}} = \bf{w}_{ML}^\top \phi(\bf{x}_n)\)
+
+\(\bullet\) EtiquetaEstimada: vector de tamaño \$\mathbb{R}\^{}\{N
+\times 1\} \$ que contiene las etiquetas estimadas para los respectivos
+\(\bf X\)
+
+    \subsection{Regresion con funciones bases
+polinomial}\label{regresion-con-funciones-bases-polinomial}
+
+Hacemos la regresion lineal con bases polinomial, despues de un proceso
+empirico de buscar el mejor numero de funciones bases, se establece que
+con 19 es el que mas se acerca a la señal. Se calcula el Error del Train
+y del Test y se puede ver que con tiene un muy bajo porcentaje de error.
+Lo que se quiere llegar es a una funcion como y.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{PHIbTr}\PY{p}{,}\PY{n}{w\PYZus{}ML}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{)}
+        \PY{n}{PHIbTe}\PY{p}{,}\PY{n}{w\PYZus{}MLTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{)}
+        \PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{PHIbTe}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}ML}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{og}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.plot(x,t, \PYZsq{}\PYZhy{}b\PYZsq{})}
+        
+        \PY{n}{RMStest} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTr}\PY{p}{,} \PY{n}{yEstimadoTr}\PY{p}{)}
+        \PY{n}{RMStrain} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTe}\PY{p}{,} \PY{n}{yEstimadoTe}\PY{p}{)}
+        
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStest}
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStrain}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Test 0.1230996011536382
+Error Train 0.1722483225300385
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresion con funciones bases
+exponencial}\label{regresion-con-funciones-bases-exponencial}
+
+Ahora analizaremos la señal pero esta vez las funciones bases seran
+exponenciales y la misma cantidad. A la hora de entrenar resulta muy
+prometedor (Linea Verde), un poco menos que con funciones bases
+polinomiales . Pero a la hora de testear (Linea Roja) las cosas se van
+por otro lugar muy distinto.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{PHIbTr}\PY{p}{,}\PY{n}{w\PYZus{}ML}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{PHIbTe}\PY{p}{,}\PY{n}{w\PYZus{}MLTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{PHIbTe}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}ML}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{og}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{RMStest} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTr}\PY{p}{,} \PY{n}{yEstimadoTr}\PY{p}{)}
+        \PY{n}{RMStrain} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTe}\PY{p}{,} \PY{n}{yEstimadoTe}\PY{p}{)}
+        
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStest}
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStrain}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Test 0.4996147868455358
+Error Train 0.6551584904287457
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresion con funciones bases
+sigmoidal}\label{regresion-con-funciones-bases-sigmoidal}
+
+Ahora analizaremos la señal pero esta vez las funciones bases seran
+sigmoidal y la misma cantidad que venimos trabajando. A la hora de
+entrenar tambien es bastante bueno (Linea Verde), pero igual con este
+modelo de regresion lineal, lo mejor viene siendo trabajar con funciones
+bases polinomiales. A la hora de testear, sucede lo mismo que con las
+funciones exponenciales.
+
+En conclusion, con este modelo de regresión lineal, viene mejor para
+esta señal trabajar con funciones bases polinomiales.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{PHIbTr}\PY{p}{,}\PY{n}{w\PYZus{}ML}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{PHIbTe}\PY{p}{,}\PY{n}{w\PYZus{}MLTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+        \PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{PHIbTe}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}ML}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{og}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{RMStest} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTr}\PY{p}{,} \PY{n}{yEstimadoTr}\PY{p}{)}
+        \PY{n}{RMStrain} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTe}\PY{p}{,} \PY{n}{yEstimadoTe}\PY{p}{)}
+        
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStest}
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStrain}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Test 0.6970546031288927
+Error Train 1.1080584770446362
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Funcion de Regresion lineal con regularización y
+Error}\label{funcion-de-regresion-lineal-con-regularizaciuxf3n-y-error}
+
+Controlar el sobre entrenamiento.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{basisFNC}\PY{p}{,}\PY{n}{NbF}\PY{p}{,}\PY{n}{lambdaI}\PY{p}{)}\PY{p}{:}
+            \PY{n}{Ndata}\PY{p}{,}\PY{n}{D} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+            \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print Ndata,D}
+            \PY{n}{yEst} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{Ndata}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Calculo de la matriz PHI de funciones base}
+            \PY{n}{PHI} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{Ndata}\PY{p}{,}\PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{PHI}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{mu} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{s2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{Ndata}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print X[n]}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{NbF}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{basisFNC} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}                
+                        \PY{n}{PHI}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{basisFNC} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                        \PY{n}{PHI}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s2}\PY{p}{)}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{basisFNC} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                        \PY{n}{PHI}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{s2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Luego se estima el mejor W que maximiza la verosimilitud utilizando minimos cuadrados}
+            \PY{n}{PHIT} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{T}
+            \PY{n}{w\PYZus{}ml} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{*}\PY{n}{I}\PY{o}{+}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+            \PY{n}{yEst} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}ml}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print w\PYZus{}ml}
+            \PY{k}{return} \PY{n}{PHI}\PY{p}{,}\PY{n}{w\PYZus{}ml}\PY{p}{,}\PY{n}{yEst}
+        
+        \PY{k}{def} \PY{n+nf}{Erms}\PY{p}{(}\PY{n}{to}\PY{p}{,} \PY{n}{te}\PY{p}{)}\PY{p}{:}
+            \PY{n}{N}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{n}{to}\PY{o}{.}\PY{n}{shape}
+            \PY{n}{eRMS} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{N}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{to}\PY{o}{\PYZhy{}}\PY{n}{te}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{eRMS}
+\end{Verbatim}
+
+
+    \section{Regresion con regularización con funciones bases
+polinomial}\label{regresion-con-regularizaciuxf3n-con-funciones-bases-polinomial}
+
+A la hora de hacer la regresion con regularizacion con funciones bases
+polinomiales, se logra disminuir el error pero de una manera muy poco
+visible, pero se logra que cuando se aumentan las funciones bases, no se
+sobreentrena como pasa en la regresion lineal normal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{lambdaI} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{18.0}\PY{p}{)}
+         \PY{n}{PHIbTr}\PY{p}{,}\PY{n}{w\PYZus{}MLReg}\PY{p}{,}\PY{n}{yEstimadoTr} \PY{o}{=} \PY{n}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{lambdaI}\PY{p}{)}
+         \PY{n}{PHIbTe}\PY{p}{,}\PY{n}{w\PYZus{}MLRegTe}\PY{p}{,}\PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{lambdaI}\PY{p}{)}
+         \PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{PHIbTe}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}MLReg}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{og}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{RMStest} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTr}\PY{p}{,} \PY{n}{yEstimadoTr}\PY{p}{)}
+         \PY{n}{RMStrain} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTe}\PY{p}{,} \PY{n}{yEstimadoTe}\PY{p}{)}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStest}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStrain}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Test 0.22810296728150897
+Error Train 0.25861218985766504
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresión con regularización con funciones
+exponenciales}\label{regresiuxf3n-con-regularizaciuxf3n-con-funciones-exponenciales}
+
+A la hora de hacerlo con funciones bases exponenciales, sigue existiendo
+el mismo que con la regresión lineal normal. Se puede observar que
+tambien aumento el error, ya que se suavizo la funcion demasiado a la
+hora de crecer en el eje x.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{lambdaI} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{18.0}\PY{p}{)}
+         \PY{n}{PHIbTr}\PY{p}{,}\PY{n}{w\PYZus{}MLReg}\PY{p}{,}\PY{n}{yEstimadoTr} \PY{o}{=} \PY{n}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{lambdaI}\PY{p}{)}
+         \PY{n}{PHIbTe}\PY{p}{,}\PY{n}{w\PYZus{}MLRegTe}\PY{p}{,}\PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{lambdaI}\PY{p}{)}
+         \PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{PHIbTe}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}MLReg}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{og}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{RMStest} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTr}\PY{p}{,} \PY{n}{yEstimadoTr}\PY{p}{)}
+         \PY{n}{RMStrain} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTe}\PY{p}{,} \PY{n}{yEstimadoTe}\PY{p}{)}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStest}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStrain}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Test 0.5238181714405472
+Error Train 0.6855146142172458
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresión con regularización con funciones
+sigmoidales}\label{regresiuxf3n-con-regularizaciuxf3n-con-funciones-sigmoidales}
+
+Lo mismo resulta con las funciones sigmoidales, aumento el error con
+regularizacion a la hora de hacer el Train, pero cuando se testea, la
+función resultante no es nada parecida a lo que necesitamos, por que se
+suaviza a la hora de crecer en el eje x.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{lambdaI} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{18.0}\PY{p}{)}
+         \PY{n}{PHIbTr}\PY{p}{,}\PY{n}{w\PYZus{}MLReg}\PY{p}{,}\PY{n}{yEstimadoTr} \PY{o}{=} \PY{n}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{lambdaI}\PY{p}{)}
+         \PY{n}{PHIbTe}\PY{p}{,}\PY{n}{w\PYZus{}MLRegTe}\PY{p}{,}\PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{LS\PYZus{}Reg}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{tTe}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{lambdaI}\PY{p}{)}
+         \PY{n}{yEstimadoTe} \PY{o}{=} \PY{n}{PHIbTe}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w\PYZus{}MLReg}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{og}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTe}\PY{p}{,}\PY{n}{yEstimadoTe}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{RMStest} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTr}\PY{p}{,} \PY{n}{yEstimadoTr}\PY{p}{)}
+         \PY{n}{RMStrain} \PY{o}{=} \PY{n}{Erms}\PY{p}{(}\PY{n}{tTe}\PY{p}{,} \PY{n}{yEstimadoTe}\PY{p}{)}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStest}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error Train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RMStrain}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error Test 0.5426214242416376
+Error Train 0.646031665767386
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresion Bayesiana}\label{regresion-bayesiana}
+
+A la hora de analizar nuestra señal con la regresion bayesiana, tenemos
+que tener tambien una matriz de funciones bases, en este caso lo haremos
+con funciones bases polinomiales, despues de variar el alpha y beta, no
+se pudo llegar a un ajuste como en la regresion lineal y regresion
+lineal con regularización.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} numero de funciones base}
+         \PY{n}{PHI}\PY{p}{,}\PY{n}{w\PYZus{}MLReg}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{k}{print} \PY{n}{PHI}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{n}{iT} \PY{o}{=}\PY{l+m+mi}{200} \PY{c+c1}{\PYZsh{} Numero de iteraciones}
+         \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.0}
+         \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{3.0}
+         \PY{n}{invbeta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{beta}
+         \PY{n}{PHIT} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{T}
+         \PY{n}{invSn} \PY{o}{=} \PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{+} \PY{n}{beta}\PY{o}{*}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}
+         \PY{n}{Sn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{invSn}\PY{p}{)}
+         \PY{n}{mn} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{Sn}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{n}{mn}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{Sn}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{c+c1}{\PYZsh{} Probemos la estimacion con el mn inicial}
+         \PY{n}{yEst} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}
+         \PY{n}{lambdaIp}\PY{p}{,}\PY{n}{vecI} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lambdaI} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{lambdaIp}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{iT}\PY{p}{)}\PY{p}{:}
+             \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{/}\PY{p}{(}\PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{o}{+}\PY{n}{lambdaI}\PY{p}{)}\PY{p}{)}
+             \PY{n}{alpha} \PY{o}{=} \PY{n}{gamma}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{mn}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}
+             \PY{n}{invbeta} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{gamma}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{tTr}\PY{o}{\PYZhy{}}\PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{o}{\PYZhy{}}\PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{invbeta}
+             \PY{n}{lambdaI} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{lambdaIp}
+             \PY{n}{invSn} \PY{o}{=} \PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{+} \PY{n}{beta}\PY{o}{*}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}
+             \PY{n}{Sn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{invSn}\PY{p}{)}
+             \PY{n}{mn} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{Sn}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{p}{)}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}print invSn }
+         \PY{n}{yEstfin} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstfin}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ok}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(140L, 100L)
+(100L, 1L) (100L, 100L)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}XxSoaD\textbackslash{}Anaconda2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}numeric.py:492: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} [<matplotlib.lines.Line2D at 0xb636e10>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresión bayesiana con funciones base
+exponencial}\label{regresiuxf3n-bayesiana-con-funciones-base-exponencial}
+
+Con regresion bayesiana con funciones base exponencial, las cosas
+mejoraron drasticamente comparandola con la regresion lineal. Con estas
+funciones bases, son las que mas se ajusta a la señal en comparación con
+las demas funciones bases, y esto se puede apreciar en las graficas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} numero de funciones base}
+         \PY{n}{PHI}\PY{p}{,}\PY{n}{w\PYZus{}MLReg}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{k}{print} \PY{n}{PHI}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{n}{iT} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} Numero de iteraciones}
+         \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.0}
+         \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{3.0}
+         \PY{n}{invbeta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{beta}
+         \PY{n}{PHIT} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{T}
+         \PY{n}{invSn} \PY{o}{=} \PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{+} \PY{n}{beta}\PY{o}{*}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}
+         \PY{n}{Sn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{invSn}\PY{p}{)}
+         \PY{n}{mn} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{Sn}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{n}{mn}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{Sn}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{c+c1}{\PYZsh{} Probemos la estimacion con el mn inicial}
+         \PY{n}{yEst} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}
+         \PY{n}{lambdaIp}\PY{p}{,}\PY{n}{vecI} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lambdaI} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{lambdaIp}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{iT}\PY{p}{)}\PY{p}{:}
+             \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{/}\PY{p}{(}\PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{o}{+}\PY{n}{lambdaI}\PY{p}{)}\PY{p}{)}
+             \PY{n}{alpha} \PY{o}{=} \PY{n}{gamma}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{mn}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}
+             \PY{n}{invbeta} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{gamma}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{tTr}\PY{o}{\PYZhy{}}\PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{o}{\PYZhy{}}\PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{invbeta}
+             \PY{n}{lambdaI} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{lambdaIp}
+             \PY{n}{invSn} \PY{o}{=} \PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{+} \PY{n}{beta}\PY{o}{*}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}
+             \PY{n}{Sn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{invSn}\PY{p}{)}
+             \PY{n}{mn} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{Sn}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{p}{)}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}print invSn }
+         \PY{n}{yEstfin} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstfin}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ok}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(140L, 100L)
+(100L, 1L) (100L, 100L)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} [<matplotlib.lines.Line2D at 0xb998a90>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Regresión bayesiana con funciones base
+sigmoidal}\label{regresiuxf3n-bayesiana-con-funciones-base-sigmoidal}
+
+Con regresion bayesiana con funciones base sigmoidales, se ve mejorado
+tambien como con la exponencial en comparativa con la regresion lineal.
+Se ajusta a la señal pero hay mucha diferencia con la misma.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} numero de funciones base}
+         \PY{n}{PHI}\PY{p}{,}\PY{n}{w\PYZus{}MLReg}\PY{p}{,}\PY{n}{yEstimadoTr}\PY{p}{,} \PY{n}{s2} \PY{o}{=} \PY{n}{LS}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sig}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{k}{print} \PY{n}{PHI}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{n}{iT} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} Numero de iteraciones}
+         \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.0}
+         \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{3.0}
+         \PY{n}{invbeta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{beta}
+         \PY{n}{PHIT} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{T}
+         \PY{n}{invSn} \PY{o}{=} \PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{+} \PY{n}{beta}\PY{o}{*}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}
+         \PY{n}{Sn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{invSn}\PY{p}{)}
+         \PY{n}{mn} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{Sn}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{n}{mn}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{Sn}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{c+c1}{\PYZsh{} Probemos la estimacion con el mn inicial}
+         \PY{n}{yEst} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}
+         \PY{n}{lambdaIp}\PY{p}{,}\PY{n}{vecI} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lambdaI} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{lambdaIp}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{iT}\PY{p}{)}\PY{p}{:}
+             \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{/}\PY{p}{(}\PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{lambdaI}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{o}{+}\PY{n}{lambdaI}\PY{p}{)}\PY{p}{)}
+             \PY{n}{alpha} \PY{o}{=} \PY{n}{gamma}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{mn}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}
+             \PY{n}{invbeta} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{gamma}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{tTr}\PY{o}{\PYZhy{}}\PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{o}{\PYZhy{}}\PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{invbeta}
+             \PY{n}{lambdaI} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{lambdaIp}
+             \PY{n}{invSn} \PY{o}{=} \PY{n}{alpha}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{+} \PY{n}{beta}\PY{o}{*}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHI}\PY{p}{)}
+             \PY{n}{Sn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{invSn}\PY{p}{)}
+             \PY{n}{mn} \PY{o}{=} \PY{n}{beta}\PY{o}{*}\PY{n}{Sn}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{PHIT}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tTr}\PY{p}{)}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}print invSn }
+         \PY{n}{yEstfin} \PY{o}{=} \PY{n}{PHI}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{mn}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{tTr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{or}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xTr}\PY{p}{,}\PY{n}{yEstfin}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ok}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(140L, 100L)
+(100L, 1L) (100L, 100L)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} [<matplotlib.lines.Line2D at 0xb9674a8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Preguntas}\label{preguntas}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  ¿ En que afecta la variacion de la cantidad de funciones base el
+  resultado final de regressión?
+\end{enumerate}
+
+    En que si hay demasiadas funciones bases, se sobreentrena el modelo.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  ¿ Cómo se podría solucionar el problema en las zonas donde la señal no
+  es bien modelada?
+\end{enumerate}
+
+    Regularizando, como ya hemos visto en el laboratorio
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  ¿ Que tipo de funcion base considera arrojar un mejor desempeño?
+\end{enumerate}
+
+    En regresion lineal y regresion lineal con regularizacion las funciones
+bases polinimiales, y para la regresion bayesiana las funciones bases
+exponenciales, para este tipo de señal.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
